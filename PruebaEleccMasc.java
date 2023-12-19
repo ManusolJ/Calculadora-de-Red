@@ -1,7 +1,6 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
-public class EleccMasc {
+public class PruebaEleccMasc {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcionmasc = 0;
@@ -35,13 +34,26 @@ public class EleccMasc {
                     }
                     break;
                 case 2:
-                    String mascarad = "0";
+                    String mascarad = "";
                     System.out.println("Notación decimal elegida.");
-                    while (!mascarad.matches("[0-2]?[0-9]?[0-9]{4}")) {
+                    while (!mascarad.matches("[0-2]?[0-9]?[0-9]\\.")) {
                         try {
-                            System.out.println("Escribe la máscara con notación decimal: ");
+                            System.out.print("Escribe la máscara con notación decimal: ");
                             mascarad = sc.next();
-                            if (!mascarad.matches("[0-2]?[0-9]?[0-9]{4}"))
+                            String a = mascarad.substring(mascarad.lastIndexOf(".")+1,mascarad.length());
+                            int b = Integer.parseInt(mascarad.substring(0,mascarad.indexOf(".")));
+                            String [] mascElementos = mascarad.split("\\.");    //Se divide los numeros en el punto,introduciendolos en un array con 4 elementos.
+                            String resultado = "";
+                            for(String oct : mascElementos){
+                                int mascbyte = Integer.parseInt(oct);
+                                if (mascbyte > 255){
+
+                                }
+                            }
+
+                            System.out.println(b);
+                            System.out.println(a);
+                            if (!mascarad.matches("[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]") && Integer.parseInt(mascarad.substring(mascarad.lastIndexOf(".")+1,mascarad.length())) > 254)
                                 throw new Exception("Error al introducir la máscara con notación decimal. Prueba de nuevo.");
                             System.out.println("Máscara en decimal correcta.");
                         } catch (Exception e) {
