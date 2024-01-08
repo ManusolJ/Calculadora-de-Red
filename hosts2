@@ -1,0 +1,51 @@
+import java.net.InetAddress;
+
+public class hosts {
+    public static void main(String[] args) {
+        InetAddress ipAddress = InetAddress.getByName("192.168.1.1");
+        int prefixLength = 24;
+        String networkAddress = calcularDireccionSubred(ipAddress, prefixLength);
+        System.out.println("Dirección de subred: " + networkAddress + "/" + prefixLength);
+        String[] addressRange = calcularRangoDirecciones(networkAddress, prefixLength);
+        System.out.println("Rango de direcciones disponibles: " + addressRange[0] + " - " + addressRange[1]);
+        int numHosts = calcularNumeroHosts(prefixLength);
+        System.out.println("Número de hosts disponibles: " + numHosts);
+    }
+    private static String calcularDireccionSubred(InetAddress ipAddress, int prefixLength) {
+        byte[] address = ipAddress.getAddress();
+        int subnetMask = (0xFFFFFFFF << (32 - prefixLength));
+        byte[] networkBytes = new byte[4];
+
+        for (int i = 0; i < 4; i++) {
+            networkBytes[i] = (byte) (address[i] & subnetMask);
+        }
+
+        try {
+            return InetAddress.getByAddress(networkBytes).getHostAddress();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String[] calcularRangoDirecciones(String networkAddress, int prefixLength) {
+        int numHosts = (1 << (32 - prefixLength)) - 2;
+        String[] addressRange = new String[2];
+
+        try {
+            InetAddress startAddress = InetAddress.getByName(networkAddress);
+            InetAddress endAddress = InetAddress.getByName(networkAddress);
+            startAddress.getAddress()[3] = 1;
+            endAddress.getAddress()[3] = (byte) (numHosts + 1);
+            addressRange[0] = startAddress.getHostAddress();
+            addressRange[1] = endAddress.getHostAddress();
+
+        } catch (Exception e) {
+            e.printStackTrace();}
+        return addressRange;
+    }
+    private static int calcularNumeroHosts(int prefixLength) {
+        return (1 << (32 - prefixLength)) - 2;
+    }
+}
