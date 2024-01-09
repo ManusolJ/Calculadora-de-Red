@@ -45,7 +45,7 @@ public class EleccMasc {
                         boolean resultado = true;
                         int [] nummasc = {0,128,192,224,240,248,252,254};//Bytes de máscara posibles cuando no es 255
                         if (mascarad.matches("[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]")){
-                            String [] mascElementos = mascarad.split("\\.");    //Se divide los numeros en el punto,introduciendolos en un array con 4 elementos.
+                            String [] mascElementos = mascarad.split("\\.");    //Se divide los números en el punto,introduciéndolos en un array con 4 elementos.
                             boolean es0 = true;
                             for(int pricont = 0; pricont<mascElementos.length; pricont++){
                                 int mascbyte = Integer.parseInt(mascElementos[pricont]);
