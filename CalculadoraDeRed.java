@@ -16,7 +16,7 @@ public class CalculadoraDeRed {
 
         String ip = sc.next();                     //Usuario introduce IP.
 
-        while(!fn.validator(ip)){                  //Validacion de la IP.
+        while(!fn.validador(ip)){                  //Validacion de la IP.
             System.out.println("Error!Vuelve a introducir la IP.");
             ip = sc.next();
         }

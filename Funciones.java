@@ -1,6 +1,5 @@
 import java.util.Scanner;
-import org.apache.commons.validator.routines.InetAddressValidator;
-
+import java.util.regex.Pattern;
 public class Funciones {
 
     public String insertarPunto (String bag){
@@ -246,13 +245,8 @@ public class Funciones {
         return rmasc;
     }
 
-    public boolean validator (String ip) {
-        boolean a = false;
-        if(InetAddressValidator.getInstance().isValid(ip) == true){
-            a = true;
-        }else a = false;
-        return a;
+    public boolean validador(String ip){
+        Pattern patron = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+        return patron.matcher(ip).matches();
     }
-
-
 }
